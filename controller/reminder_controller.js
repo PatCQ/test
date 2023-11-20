@@ -23,7 +23,7 @@ let remindersController = {
 
   create: (req, res) => {
     let reminder = {
-      id: database.cindy.reminders.length + 1,
+      id: Date.now() + Math.random(),
       title: req.body.title,
       description: req.body.description,
       completed: false,
