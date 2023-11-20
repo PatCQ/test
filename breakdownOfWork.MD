@@ -6,10 +6,11 @@ Brock Yuan A01360461:
 
 Patrick Quach A01019474:
 1. Setup repo
-2. Tested Code for bugs and functionality
+2. Tested Code - Tested code for bugs and code functionality of update/delete
 
 Ian Macdonald A01348901:
 1. Setup repo
+2. delete reminder - Completed the functionality of the Delete button
 
 *Template*:
 I worked on the following tasks:
