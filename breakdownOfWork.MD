@@ -1,12 +1,12 @@
 November 20th (First Sprint Complete)
 Brock Yuan A01360461:
+1. Setup repo
 
 Patrick Quach A01019474:
 1. Setup repo
 
 Ian Macdonald A01348901:
 1. Setup repo
-
 
 
 *Template*:
