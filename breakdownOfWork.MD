@@ -6,6 +6,7 @@ Brock Yuan A01360461:
 
 Patrick Quach A01019474:
 1. Setup repo
+2. Tested Code for bugs and functionality
 
 Ian Macdonald A01348901:
 1. Setup repo
