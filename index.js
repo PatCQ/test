@@ -91,10 +91,11 @@ app.get("/dashboard", ensureAuthenticated, (req, res) => {
       user: req.user
     })
   }
-  else res.redirect("/auth/login") // need to redirect to reminders page
+  else res.redirect("/reminders") // need to redirect to reminders page
 });
 
 app.get("/auth/logout", (req, res) => {
-  req.logout();
-  res.redirect("/auth/login");
+  req.logout((err) => {
+    res.redirect("/auth/login");
+  });
 });

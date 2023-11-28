@@ -1,12 +1,12 @@
 // let Database = {
 //   cindy: {
 //     reminders: [
-//       {
-//         id: 1,
-//         title: "Grocery shopping",
-//         description: "Buy milk and bread from safeway",
-//         completed: false,
-//       },
+  // {
+  //   id: 1,
+  //   title: "Grocery shopping",
+  //   description: "Buy milk and bread from safeway",
+  //   completed: false,
+  // },
 //     ],
 //   },
 // };
@@ -26,7 +26,7 @@ const database = [
     name: "Johnny Doe",
     email: "johnny123@gmail.com",
     password: "johnny123!",
-    reminders:[],
+    reminders:[]
   },
   {
     id: 3,

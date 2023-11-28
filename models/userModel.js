@@ -4,6 +4,7 @@ const database = [
     name: "Jimmy Smith",
     email: "jimmy123@gmail.com",
     password: "jimmy123!",
+    reminders: [],
     admin: 1,
   },
   {
@@ -11,6 +12,14 @@ const database = [
     name: "Johnny Doe",
     email: "johnny123@gmail.com",
     password: "johnny123!",
+    reminders: [
+      {
+        id: 1,
+        title: "Grocery shopping",
+        description: "Buy milk and bread from safeway",
+        completed: false,
+      },
+    ],
     admin: 0,
   },
   {
@@ -18,6 +27,7 @@ const database = [
     name: "Jonathan Chen",
     email: "jonathan123@gmail.com",
     password: "jonathan123!",
+    reminders: [],
     admin: 0,
   },
 ];
