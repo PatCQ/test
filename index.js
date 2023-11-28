@@ -6,6 +6,7 @@ const ejsLayouts = require("express-ejs-layouts");
 const reminderController = require("./controller/reminder_controller");
 const authController = require("./controller/auth_controller");
 const passport = require("./middleware/passport");
+const { ensureAuthenticated } = require("./middleware/checkAuth");
 
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -79,6 +80,19 @@ app.post(
     failureRedirect: "/auth/login",
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("welcome")
+});
+
+app.get("/dashboard", ensureAuthenticated, (req, res) => {
+  if (req.user.admin == 1) {
+    res.render("dashboard", {
+      user: req.user
+    })
+  }
+  else res.redirect("/auth/login") // need to redirect to reminders page
+});
 
 app.get("/auth/logout", (req, res) => {
   req.logout();
