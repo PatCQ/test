@@ -17,29 +17,6 @@ app.use(ejsLayouts);
 
 app.set("view engine", "ejs");
 
-// Routes start here
-app.get("/reminders", reminderController.list);
-app.get("/reminder/new", reminderController.new);
-app.get("/reminder/:id", reminderController.listOne);
-app.get("/reminder/:id/edit", reminderController.edit);
-app.post("/reminder/", reminderController.create);
-// ⭐ Implement these two routes below!
-app.post("/reminder/update/:id", reminderController.update);
-app.post("/reminder/delete/:id", reminderController.delete);
-
-// 👌 Ignore for now
-// app.get("/register", authController.register);
-// app.get("/login", authController.login);
-// app.post("/register", authController.registerSubmit);
-// app.post("/login", authController.loginSubmit);
-
-app.listen(3001, function () {
-  console.log(
-    "Server running. Visit: http://localhost:3001/reminders in your browser 🚀"
-  );
-});
-
-
 app.use(
   session({
     secret: "secret",
@@ -67,6 +44,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes start here
+app.get("/reminders", reminderController.list);
+app.get("/reminder/new", reminderController.new);
+app.get("/reminder/:id", reminderController.listOne);
+app.get("/reminder/:id/edit", reminderController.edit);
+app.post("/reminder/", reminderController.create);
+// ⭐ Implement these two routes below!
+app.post("/reminder/update/:id", reminderController.update);
+app.post("/reminder/delete/:id", reminderController.delete);
+
+// 👌 Ignore for now
+// app.get("/register", authController.register);
+// app.get("/login", authController.login);
+// app.post("/register", authController.registerSubmit);
+// app.post("/login", authController.loginSubmit);
+
+app.listen(3001, function () {
+  console.log(
+    "Server running. Visit: http://localhost:3001/reminders in your browser 🚀"
+  );
+});
+
+
 app.get(
   "/auth/login", (req, res) => {
     res.render("auth/login")
@@ -86,12 +86,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/dashboard", ensureAuthenticated, (req, res) => {
-  if (req.user.admin == 1) {
+ /*  if (req.user.admin == 1) {
     res.render("dashboard", {
       user: req.user
     })
   }
-  else res.redirect("/reminders") // need to redirect to reminders page
+  else */ 
+  console.log('found \n\n');
+  console.log(req.user);
+  console.log('found \n\n');
+  res.redirect("/reminders") // need to redirect to reminders page
 });
 
 app.get("/auth/logout", (req, res) => {
