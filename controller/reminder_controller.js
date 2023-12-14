@@ -1,5 +1,5 @@
 let database = require("../models/userModel");
-
+const access_key = 'BOeOm3vVTXGQFHmFNTpVmYsYK5l71tZsZO_H_BYHuZ4'
 let remindersController = {
   list: (req, res) => {
     //res.render("reminder/index", { reminders: database.database.reminders });
@@ -23,14 +23,26 @@ let remindersController = {
     }
   },
 
-  create: (req, res) => {
+  create: async(req, res) => {
     let reminder = {
       id: Date.now() + Math.random(),
       title: req.body.title,
       description: req.body.description,
       completed: false,
-      
+      cover:""
     };
+    if (req.file){
+      reminder.cover = '/public/' + req.file.filename;
+    }
+    else if(req.body.cover){
+      const response = await fetch("https://api.unsplash.com/photos/random", {
+        headers: {
+          Authorization: `Client-ID ${access_key}`
+        }
+    });
+    const data = await response.json();
+    reminder.cover = data.urls['thumb'];
+  }
     req.user.reminders.push(reminder);
     res.redirect("/reminders");
   },

@@ -5,6 +5,11 @@
   <% reminders.forEach(function (reminderItem) { %>
     <li class="list-group-item">
       <strong><%= reminderItem.title %>: </strong>
+      <% if (reminderItem.cover) { %>
+        <img src="<%= reminderItem.cover %>" alt="Cover Photo">
+      <% } else { %>
+        <p>No cover photo</p>
+      <% } %>
       <%= reminderItem.description %>
       || Completed:
       <% if (reminderItem.completed == true) { %>
