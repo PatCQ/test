@@ -32,7 +32,7 @@ let remindersController = {
       cover:""
     };
     if (req.file){
-      reminder.cover = '/public/' + req.file.filename;
+      reminder.cover = '/uploads/' + req.file.filename;
     }
     else if(req.body.cover){
       const response = await fetch("https://api.unsplash.com/photos/random", {
