@@ -19,6 +19,12 @@ const database = [
         description: "Buy milk and bread from safeway",
         completed: false,
       },
+      {
+        id: 2,
+        title: "shop2",
+        description: "Buy shit",
+        completed: true,
+      },
     ],
     admin: 0,
   },
