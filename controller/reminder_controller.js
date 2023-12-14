@@ -1,5 +1,5 @@
 let database = require("../models/userModel");
-
+const access_key = 'BOeOm3vVTXGQFHmFNTpVmYsYK5l71tZsZO_H_BYHuZ4'
 let remindersController = {
   list: (req, res) => {
     //res.render("reminder/index", { reminders: database.database.reminders });
@@ -23,20 +23,33 @@ let remindersController = {
     }
   },
 
-  create: (req, res) => {
+  create: async(req, res) => {
     let reminder = {
       id: Date.now() + Math.random(),
       title: req.body.title,
       description: req.body.description,
       completed: false,
+      cover:""
     };
-    database.database.push(reminder);
+    if (req.file){
+      reminder.cover = '/public/' + req.file.filename;
+    }
+    else if(req.body.cover){
+      const response = await fetch("https://api.unsplash.com/photos/random", {
+        headers: {
+          Authorization: `Client-ID ${access_key}`
+        }
+    });
+    const data = await response.json();
+    reminder.cover = data.urls['thumb'];
+  }
+    req.user.reminders.push(reminder);
     res.redirect("/reminders");
   },
 
   edit: (req, res) => {
     let reminderToFind = req.params.id;
-    let searchResult = database.database.reminders.find(function (reminder) {
+    let searchResult = req.user.reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     });
     res.render("reminder/edit", { reminderItem: searchResult });
@@ -45,15 +58,15 @@ let remindersController = {
   update: (req, res) => {
 
     let reminderToFind = req.params.id;
-    let searchResultIndex = database.database.reminders.findIndex(function (reminder) {
+    let searchResultIndex = req.user.reminders.findIndex(function (reminder) {
       return reminder.id == reminderToFind;
     });
  
     if (searchResultIndex !== -1) {
-      database.database.reminders[searchResultIndex].title = req.body.title; 
-      database.database.reminders[searchResultIndex].description = req.body.description;
-      if (req.body.completed == "true") {database.database.reminders[searchResultIndex].completed = true}
-      else {database.database.reminders[searchResultIndex].completed = false}
+      req.user.reminders[searchResultIndex].title = req.body.title; 
+      req.user.reminders[searchResultIndex].description = req.body.description;
+      if (req.body.completed == "true") {req.user.reminders[searchResultIndex].completed = true}
+      else {req.user.reminders[searchResultIndex].completed = false}
       res.redirect(`/reminder/${searchResultIndex+1}`);
     }
     
@@ -61,10 +74,10 @@ let remindersController = {
 
   delete: (req, res) => {
     let reminderToDeleteID = req.params.id;
-    let reminderToDelete = database.database.reminders.findIndex(function (reminder) {
+    let reminderToDelete = req.user.reminders.findIndex(function (reminder) {
       return reminder.id == reminderToDeleteID;
     });
-    database.database.reminders.splice((reminderToDelete), 1)
+    req.user.reminders.splice((reminderToDelete), 1)
     
     res.redirect("/reminders");
   },
