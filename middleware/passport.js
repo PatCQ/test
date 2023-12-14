@@ -1,5 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GitHubStrategy = require("passport-github2").Strategy;
 const userController = require("../controller/userController");
 const localLogin = new LocalStrategy(
   {
@@ -16,6 +17,18 @@ const localLogin = new LocalStrategy(
   }
 );
 
+const githublogin = new GitHubStrategy({
+  clientID: "",
+  ClientSecret: "",
+  callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    return done(err, user);
+  })
+}
+);
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -29,4 +42,4 @@ passport.deserializeUser(function (id, done) {
   }
 });
 
-module.exports = passport.use(localLogin);
+module.exports = passport.use(localLogin), passport.use(githublogin);
